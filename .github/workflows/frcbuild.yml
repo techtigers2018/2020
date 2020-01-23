@@ -7,6 +7,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1.1.1
     - name: FRC Build & Test
-      uses: ewpratten/FRC-actions@v1
+      uses: kenjiinoue/FRC-actions@v1
       with:
-        build_mode: 'all'
+        build_mode: 'build'
