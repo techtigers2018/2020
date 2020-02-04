@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 
 public class ColorWheelSpinner extends Subsystem {
-    private final I2C.Port i2cPort = I2C.Port.kOnboard;
-    private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
-    private final Spark wheelSpinner = new Spark(7);
+    // private final I2C.Port i2cPort = I2C.Port.kOnboard;
+    // private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
+    // private final Spark wheelSpinner = new Spark(7);
 
     public Color currentColor = new Color(0, 0, 0);
     public Color previousColor = new Color(0 ,0 ,0);
