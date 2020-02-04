@@ -84,8 +84,8 @@ public class DriveSystem extends Subsystem {
 
     }
 
-    public void testMotor(double dir){
-        testMotor.set(dir);
+    public void testMotor(){
+        testMotor.set(0.25);
     }
 
     public void stopTest(){
