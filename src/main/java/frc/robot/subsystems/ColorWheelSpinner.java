@@ -10,12 +10,13 @@ import com.revrobotics.ColorMatchResult;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.WheelColor;
 import java.util.Arrays;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
 
 
 public class ColorWheelSpinner extends Subsystem {
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
-    // private final Spark wheelSpinner = new Spark(7);
+    private final PWMVictorSPX cwMotor = new PWMVictorSPX(9);
     public Color[] colorOrder;
 
     public Color currentColor = new Color(0, 0, 0);
@@ -53,8 +54,15 @@ public class ColorWheelSpinner extends Subsystem {
         // Put code here to be run every loop
 
     }
-    public void calibrateColorSensor(){
-        int sample_size = 20;
+    public void testCWMotor(boolean dir){
+        double spd = 0.25;
+        if (dir){
+            spd*=-1;
+        }
+        
+        cwMotor.setSpeed(spd);
+    }
+    public Color getMedianColor(int sample_size){
         Color sample;
         Color result;
         double[] reds = new double[sample_size];
@@ -72,16 +80,19 @@ public class ColorWheelSpinner extends Subsystem {
         Arrays.sort(blues);
 
         result = new Color(reds[sample_size/2], greens[sample_size/2], blues[sample_size/2]);
+        return result;
+    }
+    public void calibrateColorSensor(){
+        Color result = getMedianColor(50);
         SmartDashboard.putNumber("r: ", result.red);
         SmartDashboard.putNumber("g: ", result.green);
         SmartDashboard.putNumber("b: ", result.blue);
-
         SmartDashboard.putString("cal_color", result.toString());
     }
     public void readColor(){
         Color col;
         String colorString;
-        col = colorSensor.getColor();
+        col = getMedianColor(10);
         ColorMatchResult closest_color = color_matcher.matchClosestColor(col);
         ColorMatchResult matched_color = color_matcher.matchColor(col);
         

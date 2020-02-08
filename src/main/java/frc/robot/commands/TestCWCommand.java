@@ -7,8 +7,10 @@ import frc.robot.Robot;
 /**
  *
  */
-public class CalibrateSensorCommand extends Command {
-    public CalibrateSensorCommand() {
+public class TestCWCommand extends Command {
+    public boolean dir;
+    public TestCWCommand(boolean direction) {
+        dir = direction;
         requires(Robot.spinner);
     }
 
@@ -18,12 +20,12 @@ public class CalibrateSensorCommand extends Command {
 
     @Override
     protected void execute() {
-        Robot.spinner.calibrateColorSensor();
+        Robot.spinner.testCWMotor(dir);
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     @Override
@@ -33,6 +35,6 @@ public class CalibrateSensorCommand extends Command {
 
     @Override
     protected void interrupted() {
-        
+        Robot.drive.stopTest();
     }
 }
