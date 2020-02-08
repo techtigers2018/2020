@@ -5,8 +5,11 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.WheelColor;
+import java.util.Arrays;
 
 
 public class ColorWheelSpinner extends Subsystem {
@@ -17,8 +20,27 @@ public class ColorWheelSpinner extends Subsystem {
 
     public Color currentColor = new Color(0, 0, 0);
     public Color previousColor = new Color(0 ,0 ,0);
-    public ColorWheelSpinner() {
 
+    public Color real_red;
+    public Color real_green;
+    public Color real_yellow;
+    public Color real_blue;
+    public ColorMatch color_matcher;
+
+
+    public ColorWheelSpinner() {
+        //initialize colors
+        color_matcher = new ColorMatch();
+        real_red = ColorMatch.makeColor(0.503174, 0.353516, 0.143311);
+        real_green = ColorMatch.makeColor(0.183105, 0.555908, 0.26123);
+        real_blue = ColorMatch.makeColor(0.133057, 0.428711, 0.438232);
+        real_yellow = ColorMatch.makeColor(0.314697, 0.55249, 0.132813);
+
+        //Apply color match
+        color_matcher.addColorMatch(real_red);
+        color_matcher.addColorMatch(real_green);
+        color_matcher.addColorMatch(real_yellow);
+        color_matcher.addColorMatch(real_blue);
     }
 
     @Override
@@ -31,29 +53,57 @@ public class ColorWheelSpinner extends Subsystem {
         // Put code here to be run every loop
 
     }
+    public void calibrateColorSensor(){
+        int sample_size = 20;
+        Color sample;
+        Color result;
+        double[] reds = new double[sample_size];
+        double[] greens = new double[sample_size];
+        double[] blues = new double[sample_size];
 
+        for (int i = 0; i < sample_size; i++){
+            sample = colorSensor.getColor();
+            reds[i] = sample.red;
+            greens[i] = sample.green;
+            blues[i] = sample.blue;
+        }
+        Arrays.sort(reds);
+        Arrays.sort(greens);
+        Arrays.sort(blues);
+
+        result = new Color(reds[sample_size/2], greens[sample_size/2], blues[sample_size/2]);
+        SmartDashboard.putNumber("r: ", result.red);
+        SmartDashboard.putNumber("g: ", result.green);
+        SmartDashboard.putNumber("b: ", result.blue);
+
+        SmartDashboard.putString("cal_color", result.toString());
+    }
     public void readColor(){
         Color col;
-        double sum_red, sum_blue, sum_green, avg_red, avg_blue, avg_green;
-        sum_red = 0;
-        sum_blue = 0;
-        sum_green = 0;
-
-        // for (int i = 0; i < 10; i++){
-        //     Color tmp = colorSensor.getColor();
-        //     sum_red += tmp.red;
-        //     sum_blue += tmp.blue;
-        //     sum_green += tmp.green;
-        // }
-
-        // avg_red = sum_red/10;
-        // avg_green = sum_green/10;
-        // avg_blue = sum_blue/10;
-        // col = new Color(avg_red, avg_green, avg_blue);
+        String colorString;
         col = colorSensor.getColor();
-        // col8 = new Color
+        ColorMatchResult closest_color = color_matcher.matchClosestColor(col);
+        ColorMatchResult matched_color = color_matcher.matchColor(col);
         
-        SmartDashboard.putString("Color", col.toString());
+        SmartDashboard.putString("matchclosestcolor", closest_color.color.toString());
+        SmartDashboard.putNumber("matchclosestcolor confidence", closest_color.confidence);
+
+        // SmartDashboard.putString("matchcolor", matched_color.toString());
+        // SmartDashboard.putNumber("matchcolor confidence", matched_color.confidence);
+        if (closest_color.color == real_blue) {
+            colorString = "Blue";
+          } else if (closest_color.color == real_red) {
+            colorString = "Red";
+          } else if (closest_color.color == real_green) {
+            colorString = "Green";
+          } else if (closest_color.color == real_yellow) {
+            colorString = "Yellow";
+          } else {
+            colorString = "Unknown";
+          }
+
+        SmartDashboard.putString("rawcolor", col.toString());
+        SmartDashboard.putString("colorString", colorString);
     }   
 
 }

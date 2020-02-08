@@ -80,8 +80,9 @@ public class DriveSystem extends Subsystem {
         // Put code here to be run every loop
     }
 
-    public void mecanumDrive(){
-
+    public void setMecanumDrive(double y, double x, double rotation){
+        mecanum.driveCartesian(y, x, rotation);
+        // mecanum.driveCartesian(ySpeed, xSpeed, zRotation, gyroAngle); //For field centering
     }
 
     public void testMotor(){
