@@ -8,7 +8,6 @@ import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.WheelColor;
 import java.util.Arrays;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 
