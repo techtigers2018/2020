@@ -12,6 +12,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import java.lang.Math.*;
 
 /**
  *
@@ -19,6 +20,7 @@ import frc.robot.Robot;
 public class DriveCommand extends Command {
 
     public DriveCommand() {
+        requires(Robot.drive);
     }
 
     @Override
@@ -27,14 +29,16 @@ public class DriveCommand extends Command {
 
     @Override
     protected void execute() {
-        // double strafe = Robot.oi.js1.getRawAxis(0);
-        // double speed = Robot.oi.js1.getRawAxis(1);
-        // double rotate = Robot.oi.js1.getRawAxis(2);
-        // //Tank
-        // // Robot.drive.setSpeed(speed, turn);
+        double strafe = Robot.oi.js1.getRawAxis(0);
+        double speed = Robot.oi.js1.getRawAxis(1);
+        double rotate = Robot.oi.js1.getRawAxis(2);
 
         // //Mecanum
-        // Robot.drive.setMecanumDrive(strafe, speed, rotate);
+        Robot.drive.setMecanumDrive(ramp(strafe), ramp(speed) * -1, ramp(rotate));
+    }
+
+    private double ramp(double input){
+        return Math.signum(input) * Math.pow(input, 2);
     }
 
     @Override
