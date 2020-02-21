@@ -9,13 +9,13 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Arrays;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.Spark;
 
 
 public class ColorWheelSpinner extends Subsystem {
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
-    private final PWMVictorSPX cwMotor = new PWMVictorSPX(9);
+    private final Spark cwMotor = new Spark(4);
     public Color[] colorOrder;
 
     public Color currentColor = new Color(0, 0, 0);

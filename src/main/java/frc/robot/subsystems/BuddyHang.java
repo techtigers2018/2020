@@ -7,16 +7,16 @@ import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 
-public class Hanger extends Subsystem {
+public class BuddyHang extends Subsystem {
 
     private static double limit;
-    private PWMVictorSPX hangerMotor;
+    private PWMVictorSPX winchMotor;
 
-    public Hanger() {
+    public BuddyHang() {
         limit = 10;
-        hangerMotor = new PWMVictorSPX(5);
-        addChild("Hanger Motor", hangerMotor);
-        hangerMotor.setInverted(false);
+        winchMotor = new PWMVictorSPX(6);
+        addChild("Winch Motor", winchMotor);
+        winchMotor.setInverted(true);
     }
 
     @Override
@@ -30,10 +30,10 @@ public class Hanger extends Subsystem {
     }
 
     public void climb() {
-        hangerMotor.set(0.3);
+        winchMotor.set(0.3);
     }
 
     public void descend() {
-        hangerMotor.set(-0.3);
+        winchMotor.set(-0.3);
     }
 }
