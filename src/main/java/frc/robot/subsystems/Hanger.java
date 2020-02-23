@@ -29,11 +29,25 @@ public class Hanger extends Subsystem {
 
     }
 
-    public void climb() {
-        hangerMotor.set(0.3);
+    public void runMotor(boolean dir) {
+        if(dir) {
+            climb();
+        }
+        else {
+            double speed = -0.75;
+            descend(speed);
+        }
     }
 
-    public void descend() {
-        hangerMotor.set(-0.3);
+    public void climb() {
+        hangerMotor.set(1);
+    }
+
+    public void descend(double speed) {
+        hangerMotor.set(speed);
+    }
+
+    public void stopMotor(){
+        hangerMotor.set(0);
     }
 }

@@ -29,7 +29,8 @@ public class OI {
     public Joystick js1;
 
     //test buttons
-    public JoystickButton testMotorButton, testSensorButton, calSensorButton, testColorWheelMotorButton, testColorWheelReverseButton;
+    public JoystickButton calSensorButton, testColorWheelMotorButton, testColorWheelReverseButton, hangerUpButton, hangerDownButton, winchUpButton, spoolButton;
+    //testMotorButton, testSensorButton,
 
     // Button button = new JoystickButton(stick, buttonNumber);
 
@@ -64,10 +65,10 @@ public class OI {
         js1 = new Joystick(0);
         
         //Test and development commands
-        testMotorButton = new JoystickButton(js1, 6);
-        testMotorButton.whileHeld(new TestMotorCommand());
-        testSensorButton = new JoystickButton(js1, 7);
-        testSensorButton.whenPressed(new TestSensorCommand(false, true));
+        //testMotorButton = new JoystickButton(js1, 6);
+        //testMotorButton.whileHeld(new TestMotorCommand());
+        //testSensorButton = new JoystickButton(js1, 7);
+        //testSensorButton.whenPressed(new TestSensorCommand(false, true));
         calSensorButton = new JoystickButton(js1, 8);
         calSensorButton.whenPressed(new TestSensorCommand(true, false));
 
@@ -76,7 +77,17 @@ public class OI {
         testColorWheelMotorButton.whileHeld(new TestCWCommand(true));
         testColorWheelReverseButton.whileHeld(new TestCWCommand(false));
 
+        hangerUpButton = new JoystickButton(js1, 6);
+        hangerDownButton = new JoystickButton(js1, 9);
+        winchUpButton = new JoystickButton(js1, 4);
+        //winchDownButton = new JoystickButton(js1, 10);
+        spoolButton = new JoystickButton(js1, 11);
 
+        hangerDownButton.whileHeld(new HangingCommand(false));
+        hangerUpButton.whileHeld(new HangingCommand(true));
+        winchUpButton.whileHeld(new BuddyHangCommand(true,true));
+        //winchDownButton.whileHeld(new BuddyHangCommand(false,false));
+        spoolButton.whileHeld(new BuddyHangCommand(true, false));
     }
     public Joystick getjs1() {
         return js1;
