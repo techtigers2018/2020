@@ -30,11 +30,11 @@ public class TestCWCommand extends Command {
 
     @Override
     protected void end() {
-        
+        Robot.spinner.stopCWMotor();
     }
 
     @Override
     protected void interrupted() {
-        Robot.drive.stopTest();
+        Robot.spinner.stopCWMotor();
     }
 }

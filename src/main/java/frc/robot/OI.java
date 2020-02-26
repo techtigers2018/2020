@@ -30,6 +30,8 @@ public class OI {
 
     //test buttons
     public JoystickButton calSensorButton, testColorWheelMotorButton, testColorWheelReverseButton, hangerUpButton, hangerDownButton, winchUpButton, spoolButton;
+    public JoystickButton releaseBuddyhangButton, releaseSpringButton;
+    
     //testMotorButton, testSensorButton,
 
     // Button button = new JoystickButton(stick, buttonNumber);
@@ -82,6 +84,10 @@ public class OI {
         winchUpButton = new JoystickButton(js1, 4);
         //winchDownButton = new JoystickButton(js1, 10);
         spoolButton = new JoystickButton(js1, 11);
+        releaseBuddyhangButton = new JoystickButton(js1, 7);
+        releaseBuddyhangButton.whenPressed(new SolenoidCommand(true));
+        releaseSpringButton = new JoystickButton(js1, 10);
+        releaseSpringButton.whenPressed(new SolenoidCommand(false));
 
         hangerDownButton.whileHeld(new HangingCommand(false));
         hangerUpButton.whileHeld(new HangingCommand(true));

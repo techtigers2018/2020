@@ -6,14 +6,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Hanger extends Subsystem {
 
     private static double limit;
     private PWMVictorSPX hangerMotor;
+    public DigitalInput tension;
 
     public Hanger() {
         limit = 10;
+        tension = new DigitalInput(0);
         hangerMotor = new PWMVictorSPX(5);
         addChild("Hanger Motor", hangerMotor);
         hangerMotor.setInverted(false);
@@ -44,7 +47,11 @@ public class Hanger extends Subsystem {
     }
 
     public void descend(double speed) {
-        hangerMotor.set(speed);
+        if (tension.get())
+            hangerMotor.set(speed);
+        else{
+            hangerMotor.set(0);
+        }
     }
 
     public void stopMotor(){

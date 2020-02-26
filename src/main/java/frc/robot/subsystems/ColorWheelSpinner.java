@@ -61,6 +61,11 @@ public class ColorWheelSpinner extends Subsystem {
         
         cwMotor.setSpeed(spd);
     }
+
+    public void stopCWMotor() {
+        cwMotor.setSpeed(0);
+    }
+
     public Color getMedianColor(int sample_size){
         Color sample;
         Color result;
@@ -115,5 +120,6 @@ public class ColorWheelSpinner extends Subsystem {
         SmartDashboard.putString("rawcolor", col.toString());
         SmartDashboard.putString("colorString", colorString);
     }   
+
 
 }

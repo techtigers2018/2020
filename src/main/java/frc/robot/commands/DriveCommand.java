@@ -38,7 +38,8 @@ public class DriveCommand extends Command {
     }
 
     private double ramp(double input){
-        return Math.signum(input) * Math.pow(input, 2);
+        //Math.signum(input) * 
+        return Math.pow(input, 3);
     }
 
     @Override
