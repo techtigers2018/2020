@@ -14,19 +14,18 @@ public class BuddyHang extends Subsystem {
 
     private static double limit;
     private PWMVictorSPX winchMotor;
-    private Solenoid buddyActuator1;
-    private Solenoid buddyActuator2;
+    //private Solenoid buddyActuator1;
+    //private Solenoid buddyActuator2;
 
     public BuddyHang() {
         limit = 10;
         winchMotor = new PWMVictorSPX(6);
-        buddyActuator1 = new Solenoid(0);
-        buddyActuator2 = new Solenoid(1);
+        //buddyActuator1 = new Solenoid(0);
+        //buddyActuator2 = new Solenoid(1);
         addChild("Winch Motor", winchMotor);
-        addChild("Buddy Actuator 1", buddyActuator1);
-        addChild("Buddy Actuator 2", buddyActuator2);
+        //addChild("Buddy Actuator 1", buddyActuator1);
+        //addChild("Buddy Actuator 2", buddyActuator2);
         winchMotor.setInverted(true);
-
     }
 
     @Override
@@ -52,14 +51,14 @@ public class BuddyHang extends Subsystem {
     }
 
     public void releaseBuddyHang() {
-        buddyActuator1.set(true);
-        System.out.println(buddyActuator1.get());
-        buddyActuator2.set(true);
+        //buddyActuator1.set(true);
+        //System.out.println(buddyActuator1.get());
+        //buddyActuator2.set(true);
     }
 
     public void releaseSpring() {
-        buddyActuator1.set(false);
-        buddyActuator2.set(false);
+        //buddyActuator1.set(false);
+        //buddyActuator2.set(false);
     }
 
     public void climb() {

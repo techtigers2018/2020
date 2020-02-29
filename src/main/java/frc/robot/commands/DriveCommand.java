@@ -18,8 +18,11 @@ import java.lang.Math.*;
  *
  */
 public class DriveCommand extends Command {
-
+    private double x,y,z;
     public DriveCommand() {
+        // this.y = y;
+        // this.x = x;
+        // this.z = z;
         requires(Robot.drive);
     }
 
@@ -29,22 +32,14 @@ public class DriveCommand extends Command {
 
     @Override
     protected void execute() {
-        double strafe = Robot.oi.js1.getRawAxis(0);
-        double speed = Robot.oi.js1.getRawAxis(1);
-        double rotate = Robot.oi.js1.getRawAxis(2);
-
-        // //Mecanum
-        Robot.drive.setMecanumDrive(ramp(strafe), ramp(speed) * -1, ramp(rotate));
+        // Robot.drive.setMecanumDrive(y, x, z);
     }
 
-    private double ramp(double input){
-        //Math.signum(input) * 
-        return Math.pow(input, 3);
-    }
+    
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     @Override

@@ -30,7 +30,9 @@ public class OI {
 
     //test buttons
     public JoystickButton calSensorButton, testColorWheelMotorButton, testColorWheelReverseButton, hangerUpButton, hangerDownButton, winchUpButton, spoolButton;
-    public JoystickButton releaseBuddyhangButton, releaseSpringButton;
+    //public JoystickButton releaseBuddyhangButton, releaseSpringButton;
+
+    public JoystickButton buddyN, buddyS, buddyE, buddyW, buddyNE, buddySE, buddyNW, buddySW, winchDownButton;
     
     //testMotorButton, testSensorButton,
 
@@ -82,17 +84,17 @@ public class OI {
         hangerUpButton = new JoystickButton(js1, 6);
         hangerDownButton = new JoystickButton(js1, 9);
         winchUpButton = new JoystickButton(js1, 4);
-        //winchDownButton = new JoystickButton(js1, 10);
+        winchDownButton = new JoystickButton(js1, 10);
         spoolButton = new JoystickButton(js1, 11);
-        releaseBuddyhangButton = new JoystickButton(js1, 7);
-        releaseBuddyhangButton.whenPressed(new SolenoidCommand(true));
-        releaseSpringButton = new JoystickButton(js1, 10);
-        releaseSpringButton.whenPressed(new SolenoidCommand(false));
+        //releaseBuddyhangButton = new JoystickButton(js1, 7);
+        //releaseBuddyhangButton.whenPressed(new SolenoidCommand(true));
+        //releaseSpringButton = new JoystickButton(js1, 10);
+        //releaseSpringButton.whenPressed(new SolenoidCommand(false));
 
         hangerDownButton.whileHeld(new HangingCommand(false));
         hangerUpButton.whileHeld(new HangingCommand(true));
         winchUpButton.whileHeld(new BuddyHangCommand(true,true));
-        //winchDownButton.whileHeld(new BuddyHangCommand(false,false));
+        winchDownButton.whileHeld(new BuddyHangCommand(false,false));
         spoolButton.whileHeld(new BuddyHangCommand(true, false));
     }
     public Joystick getjs1() {
